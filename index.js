@@ -2,16 +2,22 @@ const { buildSchema } = require("graphql");
 const express = require("express");
 const graphqlHTTP = require("express-graphql");
 
+// utils
+const utils = {
+  parseDate: strDate =>
+    new Date(
+      strDate
+        .split("/")
+        .reverse()
+        .join("/")
+    )
+};
+
 // Todo class
 class Todo {
   constructor(id, dueDate, content) {
     this.id = id;
-    this.dueDate = new Date(
-      dueDate
-        .split("/")
-        .reverse()
-        .join("/")
-    );
+    this.dueDate = utils.parseDate(dueDate);
     this.content = content;
   }
 
